@@ -20,6 +20,7 @@ namespace AcousticsNowPlaying {
             Windows7Taskbar.SetCurrentProcessAppId("AcousticsTaskbar");
 
             /* Reset the form labels */
+            lblSongTitle.TextAlign = ContentAlignment.TopCenter;
             lblSongTitle.Text = "Nothing Playing";
             lblSongAlbum.Text = "";
             lblSongArtist.Text = "";
@@ -88,6 +89,7 @@ namespace AcousticsNowPlaying {
                     this.Invoke(new MethodInvoker(delegate {
                         this.BackgroundImage = albumart;
                         this.Icon = Icon.FromHandle(((Bitmap)this.BackgroundImage).GetHicon());
+                        lblSongTitle.TextAlign = ContentAlignment.TopLeft;
                         lblSongTitle.Text = status.currentSong.title;
                         lblSongArtist.Text = status.currentSong.artist;
                         lblSongAlbum.Text = status.currentSong.album;
@@ -104,6 +106,7 @@ namespace AcousticsNowPlaying {
                         this.Text = "Nothing Playing";
                         this.BackgroundImage = null;
                         this.Icon = originalIcon;
+                        lblSongTitle.TextAlign = ContentAlignment.TopCenter;
                         lblSongTitle.Text = "Nothing Playing";
                         lblSongArtist.Text = "";
                         lblSongAlbum.Text = "";

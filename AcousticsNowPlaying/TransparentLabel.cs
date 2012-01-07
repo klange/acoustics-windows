@@ -40,12 +40,18 @@ public class TransparentLabel : Label {
         GraphicsPath stroke = new GraphicsPath();
         stroke.AddString(this.Text, this.Font.FontFamily, (int)FontStyle.Regular, this.Font.Size * 1.2f, new Point(0, 0), StringFormat.GenericDefault);
         RectangleF bounds = stroke.GetBounds();
-        if (this.TextAlign == ContentAlignment.TopRight) {
-            /* Align right */
-            Matrix translationMatrix = new Matrix();
+        Matrix translationMatrix = new Matrix();
+        if (this.TextAlign == ContentAlignment.TopRight || this.TextAlign == ContentAlignment.MiddleRight || this.TextAlign == ContentAlignment.BottomRight) {
             translationMatrix.Translate(this.Width - bounds.Width - 8, 0);
-            stroke.Transform(translationMatrix);
+        } else if (this.TextAlign == ContentAlignment.TopCenter || this.TextAlign == ContentAlignment.MiddleCenter || this.TextAlign == ContentAlignment.BottomCenter) {
+            translationMatrix.Translate((this.Width - bounds.Width - 8) / 2, 0);
         }
+        if (this.TextAlign == ContentAlignment.MiddleLeft || this.TextAlign == ContentAlignment.MiddleRight || this.TextAlign == ContentAlignment.MiddleCenter) {
+            translationMatrix.Translate(0, (this.Height - bounds.Height - 5) / 2);
+        } else if (this.TextAlign == ContentAlignment.BottomLeft || this.TextAlign == ContentAlignment.BottomCenter || this.TextAlign == ContentAlignment.BottomRight) {
+            translationMatrix.Translate(0, (this.Height - bounds.Height - 5));
+        }
+        stroke.Transform(translationMatrix);
         e.Graphics.DrawPath(new Pen(Brushes.Black, 3.0f), stroke); /* Stroke */
         e.Graphics.FillPath(Brushes.White, stroke); /* Text */
     }
