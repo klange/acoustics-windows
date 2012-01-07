@@ -31,10 +31,12 @@ public class CoolProgressBar : Label {
 
         // Draw the bar
         Draw3DBorder(g, 0.5f, Brushes.Black, true, 7.0f, 1.0f);
-        Draw3DBorder(g, 3.5f, Brushes.White, false, 4.0f, 1.0f);
+        
         Draw3DBorder(g, 3.5f, Brushes.White, true, 4.0f, percent);
 
         RenderText(g);
+
+        Draw3DBorder(g, 3.5f, Brushes.White, false, 4.0f, 1.0f);
 
         // Clean up.
         g.Dispose();	
