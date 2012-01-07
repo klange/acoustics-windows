@@ -11,6 +11,7 @@ namespace Acoustics {
         public int time;
         public int start_time;
         public int length;
+        public String user;
         public AcousticsStatus(JObject json) {
             try {
                 currentSong = new AcousticsSong(
@@ -26,6 +27,7 @@ namespace Acoustics {
                 currentSong = null;
             }
             try {
+                user = (String)json["who"];
                 volume = (int)json["player"]["volume"];
             } catch {
                 volume = 50;

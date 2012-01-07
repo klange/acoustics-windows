@@ -67,7 +67,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.coolProgressBar1.Location = new System.Drawing.Point(12, 475);
             this.coolProgressBar1.Name = "coolProgressBar1";
-            this.coolProgressBar1.Size = new System.Drawing.Size(476, 16);
+            this.coolProgressBar1.Size = new System.Drawing.Size(471, 16);
             this.coolProgressBar1.TabIndex = 4;
             // 
             // lblSongAlbum
@@ -112,7 +112,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ClientSize = new System.Drawing.Size(500, 500);
+            this.ClientSize = new System.Drawing.Size(495, 500);
             this.Controls.Add(this.coolProgressBar1);
             this.Controls.Add(this.lblSongAlbum);
             this.Controls.Add(this.lblSongArtist);

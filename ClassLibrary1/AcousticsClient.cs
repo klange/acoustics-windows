@@ -27,15 +27,20 @@ namespace Acoustics {
             HttpWebRequest req = (HttpWebRequest)WebRequest.Create(source + path);
             req.CookieContainer = cookies;
             req.Credentials = creds;
+            req.Timeout = 5000;
             req.Method = "GET";
-            WebResponse res = req.GetResponse();
-            Stream stream = res.GetResponseStream();
-            StreamReader reader = new StreamReader(stream);
-            String _out = reader.ReadToEnd();
-            reader.Close();
-            stream.Close();
-            res.Close();
-            return _out;
+            try {
+                WebResponse res = req.GetResponse();
+                Stream stream = res.GetResponseStream();
+                StreamReader reader = new StreamReader(stream);
+                String _out = reader.ReadToEnd();
+                reader.Close();
+                stream.Close();
+                res.Close();
+                return _out;
+            } catch (Exception e) {
+                return "";
+            }
         }
 
         public void login(String uname, String password) {
