@@ -37,6 +37,7 @@
             this.lblSongAlbum = new TransparentLabel();
             this.lblSongArtist = new TransparentLabel();
             this.lblSongTitle = new TransparentLabel();
+            this.lblSongTime = new TransparentLabel();
             this.SuspendLayout();
             // 
             // updateTick
@@ -72,39 +73,51 @@
             // 
             // lblSongAlbum
             // 
-            this.lblSongAlbum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblSongAlbum.AutoSize = true;
+            this.lblSongAlbum.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSongAlbum.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSongAlbum.ForeColor = System.Drawing.Color.White;
             this.lblSongAlbum.Location = new System.Drawing.Point(12, 446);
             this.lblSongAlbum.Name = "lblSongAlbum";
-            this.lblSongAlbum.Size = new System.Drawing.Size(72, 25);
+            this.lblSongAlbum.Size = new System.Drawing.Size(326, 25);
             this.lblSongAlbum.TabIndex = 3;
             this.lblSongAlbum.Text = "Album";
             // 
             // lblSongArtist
             // 
-            this.lblSongArtist.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblSongArtist.AutoSize = true;
+            this.lblSongArtist.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSongArtist.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSongArtist.ForeColor = System.Drawing.Color.White;
             this.lblSongArtist.Location = new System.Drawing.Point(12, 421);
             this.lblSongArtist.Name = "lblSongArtist";
-            this.lblSongArtist.Size = new System.Drawing.Size(61, 25);
+            this.lblSongArtist.Size = new System.Drawing.Size(471, 25);
             this.lblSongArtist.TabIndex = 2;
             this.lblSongArtist.Text = "Artist";
             // 
             // lblSongTitle
             // 
-            this.lblSongTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblSongTitle.AutoSize = true;
+            this.lblSongTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSongTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSongTitle.ForeColor = System.Drawing.Color.White;
             this.lblSongTitle.Location = new System.Drawing.Point(12, 390);
             this.lblSongTitle.Name = "lblSongTitle";
-            this.lblSongTitle.Size = new System.Drawing.Size(146, 31);
+            this.lblSongTitle.Size = new System.Drawing.Size(471, 31);
             this.lblSongTitle.TabIndex = 1;
             this.lblSongTitle.Text = "Song Title";
+            // 
+            // lblSongTime
+            // 
+            this.lblSongTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSongTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSongTime.ForeColor = System.Drawing.Color.White;
+            this.lblSongTime.Location = new System.Drawing.Point(336, 450);
+            this.lblSongTime.Name = "lblSongTime";
+            this.lblSongTime.Size = new System.Drawing.Size(147, 18);
+            this.lblSongTime.TabIndex = 5;
+            this.lblSongTime.Text = "00:00:00 / 00:00:00";
+            this.lblSongTime.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // MainForm
             // 
@@ -113,6 +126,7 @@
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(495, 500);
+            this.Controls.Add(this.lblSongTime);
             this.Controls.Add(this.coolProgressBar1);
             this.Controls.Add(this.lblSongAlbum);
             this.Controls.Add(this.lblSongArtist);
@@ -122,7 +136,6 @@
             this.Text = "Acoustics";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -135,6 +148,7 @@
         private System.Windows.Forms.ImageList playerIcons;
         private CoolProgressBar coolProgressBar1;
         private System.Windows.Forms.Timer progressTicker;
+        private TransparentLabel lblSongTime;
 
     }
 }

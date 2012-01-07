@@ -18,17 +18,36 @@ public class TransparentLabel : Label {
             return parms;
         }
     }
+    protected override void OnTextChanged(EventArgs e) {
+        this.Invalidate();
+        InvalidateEx();
+        base.OnTextChanged(e);
+    }
+    protected override void OnPaintBackground(PaintEventArgs prevent) {
+        /* Prevent Background Rendering */
+    }
+    protected void InvalidateEx() {
+        if (Parent == null)
+            return;
+        Rectangle rc = new Rectangle(this.Location, this.Size);
+        Parent.Invalidate(rc, true);
+    }
     protected override void OnPaint(PaintEventArgs e) {
-        e.Graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
-        Font font = new Font(this.Font.Name, this.Font.Size * 0.9f);
-        /* Stroke */
-        for (int i = -1; i < 2; ++i) {
-            for (int j = -1; j < 2; ++j) {
-                e.Graphics.DrawString(Text, font, Brushes.Black, i, j);
-            }
+        e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+        e.Graphics.CompositingQuality = CompositingQuality.HighQuality;
+        e.Graphics.CompositingMode = CompositingMode.SourceOver;
+     
+        GraphicsPath stroke = new GraphicsPath();
+        stroke.AddString(this.Text, this.Font.FontFamily, (int)FontStyle.Regular, this.Font.Size * 1.2f, new Point(0, 0), StringFormat.GenericDefault);
+        RectangleF bounds = stroke.GetBounds();
+        if (this.TextAlign == ContentAlignment.TopRight) {
+            /* Align right */
+            Matrix translationMatrix = new Matrix();
+            translationMatrix.Translate(this.Width - bounds.Width - 8, 0);
+            stroke.Transform(translationMatrix);
         }
-        /* Primary text */
-        e.Graphics.DrawString(Text, font, Brushes.White, 0, 0);
+        e.Graphics.DrawPath(new Pen(Brushes.Black, 3.0f), stroke); /* Stroke */
+        e.Graphics.FillPath(Brushes.White, stroke); /* Text */
     }
 
 }

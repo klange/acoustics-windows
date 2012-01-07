@@ -94,6 +94,7 @@ namespace AcousticsNowPlaying {
                         this.Text = status.currentSong.title + " - " + status.currentSong.artist;
                         coolProgressBar1.Maximum = status.length;
                         coolProgressBar1.Value = status.time - status.start_time;
+                        updateClock();
                         coolProgressBar1.Visible = true;
                     }));
                 }
@@ -107,6 +108,7 @@ namespace AcousticsNowPlaying {
                         lblSongTitle.Text = "Nothing Playing";
                         lblSongArtist.Text = "";
                         lblSongAlbum.Text = "";
+                        lblSongTime.Text = "";
                         coolProgressBar1.Visible = false;
                     }));
                 }
@@ -122,10 +124,37 @@ namespace AcousticsNowPlaying {
             if (coolProgressBar1.Value < coolProgressBar1.Maximum) {
                 coolProgressBar1.Value += 1;
                 coolProgressBar1.Refresh();
+                updateClock();
             } else {
                 Thread _worker = new Thread(new ThreadStart(performUpdate));
                 _worker.Start();
             }
+        }
+
+        private String timeToString(int time) {
+            int hours = 0, minutes = 0, seconds = time;
+            while (seconds > 3600) {
+                hours++;
+                seconds -= 3600;
+            }
+            while (seconds > 60) {
+                minutes++;
+                seconds -= 60;
+            }
+            if (hours == 0) {
+                if (minutes == 0) {
+                    return String.Format("0:{0:00}", seconds);
+                } else {
+                    return String.Format("{0}:{1:00}", minutes, seconds);
+                }
+            } else {
+                return String.Format("{0}:{1:00}:{2:00}", hours, minutes, seconds);
+            }
+        }
+
+        private void updateClock() {
+            lblSongTime.Text = timeToString(coolProgressBar1.Value) + " / " + timeToString(coolProgressBar1.Maximum);
+            lblSongTime.Refresh();
         }
 
     }
