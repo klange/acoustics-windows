@@ -76,11 +76,11 @@ public class CoolProgressBar : Label {
     }
     private String timeToString(int time) {
         int hours = 0, minutes = 0, seconds = time;
-        while (seconds > 3600) {
+        while (seconds >= 3600) {
             hours++;
             seconds -= 3600;
         }
-        while (seconds > 60) {
+        while (seconds >= 60) {
             minutes++;
             seconds -= 60;
         }
