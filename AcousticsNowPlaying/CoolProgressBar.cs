@@ -34,6 +34,8 @@ public class CoolProgressBar : Label {
         Draw3DBorder(g, 3.5f, Brushes.White, false, 4.0f, 1.0f);
         Draw3DBorder(g, 3.5f, Brushes.White, true, 4.0f, percent);
 
+        RenderText(g);
+
         // Clean up.
         g.Dispose();	
     }
@@ -69,7 +71,51 @@ public class CoolProgressBar : Label {
             g.DrawPath(pen, path);
         }
         
-    } 
+    }
+    private String timeToString(int time) {
+        int hours = 0, minutes = 0, seconds = time;
+        while (seconds > 3600) {
+            hours++;
+            seconds -= 3600;
+        }
+        while (seconds > 60) {
+            minutes++;
+            seconds -= 60;
+        }
+        if (hours == 0) {
+            if (minutes == 0) {
+                return String.Format("0:{0:00}", seconds);
+            } else {
+                return String.Format("{0}:{1:00}", minutes, seconds);
+            }
+        } else {
+            return String.Format("{0}:{1:00}:{2:00}", hours, minutes, seconds);
+        }
+    }
+
+    /*
+    private void updateClock() {
+        lblSongTime.Text = timeToString(coolProgressBar1.Value) + " / " + timeToString(coolProgressBar1.Maximum);
+        lblSongTime.Refresh();
+    }
+     */
+    private void RenderText(Graphics g) {
+        g.SmoothingMode = SmoothingMode.AntiAlias;
+        g.CompositingQuality = CompositingQuality.HighQuality;
+        g.CompositingMode = CompositingMode.SourceOver;
+
+        String text = timeToString(this.Value) + " / " + timeToString(this.Maximum);
+
+        GraphicsPath stroke = new GraphicsPath();
+        stroke.AddString(text, this.Font.FontFamily, (int)FontStyle.Regular, this.Font.Size * 1.2f, new Point(0, 0), StringFormat.GenericDefault);
+        RectangleF bounds = stroke.GetBounds();
+        /* Align right */
+        Matrix translationMatrix = new Matrix();
+        translationMatrix.Translate((this.Width - bounds.Width - 8) / 2, (this.Height - bounds.Height - 5) / 2);
+        stroke.Transform(translationMatrix);
+        g.DrawPath(new Pen(Brushes.Black, 3.0f), stroke); /* Stroke */
+        g.FillPath(Brushes.White, stroke); /* Text */
+    }
 	
 
 }
