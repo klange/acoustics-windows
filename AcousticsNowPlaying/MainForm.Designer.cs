@@ -67,7 +67,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.coolProgressBar1.Location = new System.Drawing.Point(12, 475);
             this.coolProgressBar1.Name = "coolProgressBar1";
-            this.coolProgressBar1.Size = new System.Drawing.Size(471, 16);
+            this.coolProgressBar1.Size = new System.Drawing.Size(471, 22);
             this.coolProgressBar1.TabIndex = 4;
             // 
             // lblSongAlbum
