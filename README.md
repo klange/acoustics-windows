@@ -7,3 +7,9 @@ This is a work-in-progress. Nothing is guaranteed about it working.
 ## Requirements
 
 You need to have the Windows 7 toolbar .net wrapper library somewhere. You will also need json.NET (Newtonsoft). I haven't included them here because that's bad form and I'll have a compiled version of this up somewhere eventually.
+
+## Download
+
+A pre-built version that I may update occasionally is available on my Dropbox:
+
+	http://dl.dropbox.com/u/44305966/AcousticsDesktopRelease.zip
