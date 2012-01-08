@@ -88,11 +88,17 @@ namespace AcousticsNowPlaying {
                 if (InvokeRequired) {
                     this.Invoke(new MethodInvoker(delegate {
                         this.BackgroundImage = albumart;
-                        this.Icon = Icon.FromHandle(((Bitmap)this.BackgroundImage).GetHicon());
+                        try {
+                            this.Icon = Icon.FromHandle(((Bitmap)this.BackgroundImage).GetHicon());
+                        } catch {
+
+                        }
                         lblSongTitle.TextAlign = ContentAlignment.TopLeft;
                         lblSongTitle.Text = status.currentSong.title;
                         lblSongArtist.Text = status.currentSong.artist;
                         lblSongAlbum.Text = status.currentSong.album;
+                        lblUserName.Text = status.user;
+                        lblRoomName.Text = status.player;
                         this.Text = status.currentSong.title + " - " + status.currentSong.artist;
                         coolProgressBar1.Maximum = status.length;
                         coolProgressBar1.Value = status.time - status.start_time;
@@ -110,6 +116,8 @@ namespace AcousticsNowPlaying {
                         lblSongTitle.Text = "Nothing Playing";
                         lblSongArtist.Text = "";
                         lblSongAlbum.Text = "";
+                        lblUserName.Text = status.user;
+                        lblRoomName.Text = status.player;
                         coolProgressBar1.Visible = false;
                     }));
                 }

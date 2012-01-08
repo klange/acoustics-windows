@@ -33,6 +33,8 @@
             this.updateTick = new System.Windows.Forms.Timer(this.components);
             this.playerIcons = new System.Windows.Forms.ImageList(this.components);
             this.progressTicker = new System.Windows.Forms.Timer(this.components);
+            this.lblRoomName = new TransparentLabel();
+            this.lblUserName = new TransparentLabel();
             this.lblSongAlbum = new TransparentLabel();
             this.lblSongArtist = new TransparentLabel();
             this.lblSongTitle = new TransparentLabel();
@@ -60,6 +62,28 @@
             this.progressTicker.Enabled = true;
             this.progressTicker.Interval = 1000;
             this.progressTicker.Tick += new System.EventHandler(this.progressTicker_Tick);
+            // 
+            // lblRoomName
+            // 
+            this.lblRoomName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblRoomName.Location = new System.Drawing.Point(383, 9);
+            this.lblRoomName.Name = "lblRoomName";
+            this.lblRoomName.Size = new System.Drawing.Size(100, 15);
+            this.lblRoomName.TabIndex = 6;
+            this.lblRoomName.Text = "room";
+            this.lblRoomName.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.lblRoomName.Visible = false;
+            // 
+            // lblUserName
+            // 
+            this.lblUserName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblUserName.Location = new System.Drawing.Point(383, 24);
+            this.lblUserName.Name = "lblUserName";
+            this.lblUserName.Size = new System.Drawing.Size(100, 16);
+            this.lblUserName.TabIndex = 5;
+            this.lblUserName.Text = "username";
+            this.lblUserName.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.lblUserName.Visible = false;
             // 
             // lblSongAlbum
             // 
@@ -113,13 +137,15 @@
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(495, 500);
+            this.Controls.Add(this.lblRoomName);
+            this.Controls.Add(this.lblUserName);
             this.Controls.Add(this.lblSongAlbum);
             this.Controls.Add(this.lblSongArtist);
             this.Controls.Add(this.lblSongTitle);
             this.Controls.Add(this.coolProgressBar1);
             this.MinimumSize = new System.Drawing.Size(500, 500);
             this.Name = "MainForm";
-            this.Text = "Acoustics";
+            this.Text = "s";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
 
@@ -134,6 +160,8 @@
         private System.Windows.Forms.ImageList playerIcons;
         private CoolProgressBar coolProgressBar1;
         private System.Windows.Forms.Timer progressTicker;
+        private TransparentLabel lblUserName;
+        private TransparentLabel lblRoomName;
 
     }
 }
