@@ -14,11 +14,8 @@ using Acoustics;
 
 namespace AcousticsNowPlaying {
     public partial class MainForm : Form {
-        public MainForm() {
-            InitializeComponent();
-            Windows7Taskbar.AllowTaskbarWindowMessagesThroughUIPI();
-            Windows7Taskbar.SetCurrentProcessAppId("AcousticsTaskbar");
 
+        public void Reinit() {
             /* Reset the form labels */
             lblSongTitle.TextAlign = ContentAlignment.TopCenter;
             lblSongTitle.Text = "Nothing Playing";
@@ -42,6 +39,14 @@ namespace AcousticsNowPlaying {
             Thread _worker = new Thread(new ThreadStart(doLogin));
             _worker.Name = "Login Thread";
             _worker.Start();
+        }
+
+        public MainForm() {
+            InitializeComponent();
+            Windows7Taskbar.AllowTaskbarWindowMessagesThroughUIPI();
+            Windows7Taskbar.SetCurrentProcessAppId("AcousticsTaskbar");
+
+            Reinit();
         }
 
         string _password = "";
@@ -164,20 +169,20 @@ namespace AcousticsNowPlaying {
         private AboutWindow _aboutWindow;
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
             try {
-                _aboutWindow.Show();
+                _aboutWindow.Show(this);
             } catch {
                 _aboutWindow = new AboutWindow();
-                _aboutWindow.Show();
+                _aboutWindow.Show(this);
             }
         }
 
         private SettingsWindow _settingsWindow;
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e) {
             try {
-                _settingsWindow.Show();
+                _settingsWindow.Show(this);
             } catch {
                 _settingsWindow = new SettingsWindow();
-                _settingsWindow.Show();
+                _settingsWindow.Show(this);
             }
         }
 

@@ -37,6 +37,8 @@ namespace AcousticsNowPlaying {
             Properties.Settings.Default.promptForPassword = chkAskForPass.Checked;
             Properties.Settings.Default.showExtraInfo = chkShowExtra.Checked;
             Properties.Settings.Default.Save();
+
+            ((MainForm)this.Owner).Reinit();
             this.Hide();
         }
 
