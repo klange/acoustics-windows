@@ -27,14 +27,28 @@ namespace AcousticsNowPlaying {
             coolProgressBar1.Visible = false;
             originalIcon = this.Icon;
 
+            lblUserName.Visible = Properties.Settings.Default.showExtraInfo;
+            lblRoomName.Visible = Properties.Settings.Default.showExtraInfo;
+
+            if (Properties.Settings.Default.promptForPassword) {
+                InputBox tmp = new InputBox();
+                DialogResult _result = tmp.ShowDialog(this);
+                if (_result == DialogResult.OK) {
+                    _password = tmp.Password;
+                }
+            }
+
             /* Send the initial login request */
             Thread _worker = new Thread(new ThreadStart(doLogin));
             _worker.Start();
         }
 
+        string _password = "";
+
         void doLogin() {
             client = new AcousticsClient(Properties.Settings.Default.serverBaseAddress);
-            client.login("","");
+            client.ForcePlayer = Properties.Settings.Default.roomName;
+            client.login(Properties.Settings.Default.userName,_password);
             performUpdate();
         }
 

@@ -23,16 +23,18 @@ namespace Acoustics {
                 time = (int)json["now_playing"]["now"];
                 start_time = (int)json["player"]["song_start"];
                 length = (int)json["now_playing"]["length"];
+                volume = (int)json["player"]["volume"];
             } catch {
                 /* Nothing is playing */
                 currentSong = null;
+                volume = 50;
             }
             try {
                 user = (String)json["who"];
                 player = (String)json["selected_player"];
-                volume = (int)json["player"]["volume"];
             } catch {
-                volume = 50;
+                user = "";
+                player = "";
             }
         }
     }

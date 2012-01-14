@@ -15,6 +15,10 @@ namespace AcousticsNowPlaying {
 
         private void reloadData() {
             txtServerBase.Text = Properties.Settings.Default.serverBaseAddress;
+            txtUserName.Text = Properties.Settings.Default.userName;
+            txtRoom.Text = Properties.Settings.Default.roomName;
+            chkAskForPass.Checked = Properties.Settings.Default.promptForPassword;
+            chkShowExtra.Checked = Properties.Settings.Default.showExtraInfo;
         }
 
         private void SettingsWindow_Load(object sender, EventArgs e) {
@@ -28,8 +32,13 @@ namespace AcousticsNowPlaying {
 
         private void btnSave_Click(object sender, EventArgs e) {
             Properties.Settings.Default.serverBaseAddress = txtServerBase.Text;
+            Properties.Settings.Default.userName = txtUserName.Text;
+            Properties.Settings.Default.roomName = txtRoom.Text;
+            Properties.Settings.Default.promptForPassword = chkAskForPass.Checked;
+            Properties.Settings.Default.showExtraInfo = chkShowExtra.Checked;
             Properties.Settings.Default.Save();
             this.Hide();
         }
+
     }
 }

@@ -7,6 +7,7 @@ using System.IO;
 using System.Security;
 using System.Drawing;
 using System.Web;
+using System.Diagnostics;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -15,7 +16,7 @@ namespace Acoustics {
         public WebClient webClient;
         public String source;
         private CookieContainer cookies;
-        private NetworkCredential creds;
+        private CredentialCache creds;
         public AcousticsStatus currentStatus;
 
         public AcousticsClient(String source) {
@@ -24,10 +25,11 @@ namespace Acoustics {
         }
 
         public string sendRequest(String path) {
+            Debug.WriteLine("Request: " + path);
             HttpWebRequest req = (HttpWebRequest)WebRequest.Create(source + path);
             req.CookieContainer = cookies;
             req.Credentials = creds;
-            req.Timeout = 5000;
+            req.Timeout = 10000;
             req.Method = "GET";
             try {
                 WebResponse res = req.GetResponse();
@@ -37,8 +39,12 @@ namespace Acoustics {
                 reader.Close();
                 stream.Close();
                 res.Close();
+                Debug.WriteLine("Result Length = " + _out.Length);
+                Debug.Write(_out);
+                Debug.WriteLine("----");
                 return _out;
             } catch (Exception e) {
+                Debug.WriteLine("Error: " + e.Message);
                 return "";
             }
         }
@@ -48,12 +54,33 @@ namespace Acoustics {
             foreach (char c in password.ToCharArray()) {
                 pass.AppendChar(c);
             }
-            creds = new NetworkCredential(uname, pass);
+
+            Uri serviceUri = new Uri(source + "www-data/auth/");
+            creds = new CredentialCache();
+            creds.Add(serviceUri, "Basic", new NetworkCredential(uname, password));
+
+            Debug.WriteLine("Signing in...");
+
             sendRequest("www-data/auth/");
         }
 
+        private string _forcePlayer;
+        public String ForcePlayer {
+            get { return _forcePlayer; }
+            set { _forcePlayer = value; }
+        }
+        private String ForcedPlayerArg {
+            get {
+                if (_forcePlayer.Length > 0) {
+                    return "player_id=" + _forcePlayer + ";";
+                } else {
+                    return "";
+                }
+            }
+        }
+
         public String getResponse(String args) {
-            return sendRequest("json.pl?" + args);
+            return sendRequest("json.pl?" + ForcedPlayerArg + args);
         }
 
         public JObject responseObject(String args) {
