@@ -44,9 +44,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(14, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(325, 13);
+            this.label1.Size = new System.Drawing.Size(234, 13);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Please enter the password for the account configured in \"Settings\":";
+            this.label1.Text = "Please enter the password for user \'{%USER%}\'.";
             // 
             // textBox1
             // 
@@ -77,8 +77,9 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.button2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
             this.Name = "InputBox";
-            this.Text = "InputBox";
+            this.Text = "Enter password";
             this.Load += new System.EventHandler(this.InputBox_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

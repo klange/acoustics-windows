@@ -26,6 +26,7 @@ namespace AcousticsNowPlaying {
 
         private void InputBox_Load(object sender, EventArgs e) {
             textBox1.Focus();
+            label1.Text = label1.Text.Replace("{%USER%}", Properties.Settings.Default.userName);
         }
     }
 }
