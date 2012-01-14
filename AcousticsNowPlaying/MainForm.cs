@@ -40,6 +40,7 @@ namespace AcousticsNowPlaying {
 
             /* Send the initial login request */
             Thread _worker = new Thread(new ThreadStart(doLogin));
+            _worker.Name = "Login Thread";
             _worker.Start();
         }
 
@@ -55,7 +56,7 @@ namespace AcousticsNowPlaying {
         private ThumbButtonManager _thumbButtonManager;
         private AcousticsClient client;
         private Icon originalIcon;
-
+        private int asyncCount = 0;
 
         protected override void WndProc(ref Message m) {
             if (m.Msg == Windows7Taskbar.TaskbarButtonCreatedMessage) {
@@ -139,7 +140,9 @@ namespace AcousticsNowPlaying {
         }
 
         private void doUpdate() {
+            asyncCount++;
             Thread _worker = new Thread(new ThreadStart(performUpdate));
+            _worker.Name = "Async Request #" + asyncCount.ToString();
             _worker.Start();
         }
 
