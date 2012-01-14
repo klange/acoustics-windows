@@ -144,16 +144,24 @@ namespace AcousticsNowPlaying {
             }
         }
 
+        private AboutWindow _aboutWindow;
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
-            /* TODO: About box */
+            try {
+                _aboutWindow.Show();
+            } catch {
+                _aboutWindow = new AboutWindow();
+                _aboutWindow.Show();
+            }
         }
 
         private SettingsWindow _settingsWindow;
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (_settingsWindow == null) {
+            try {
+                _settingsWindow.Show();
+            } catch {
                 _settingsWindow = new SettingsWindow();
+                _settingsWindow.Show();
             }
-            _settingsWindow.Show();
         }
 
         private void refreshToolStripMenuItem_Click(object sender, EventArgs e) {
