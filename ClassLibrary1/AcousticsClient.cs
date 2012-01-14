@@ -58,7 +58,11 @@ namespace Acoustics {
 
         public JObject responseObject(String args) {
             String s = getResponse(args);
-            return JObject.Parse(s);
+            try {
+                return JObject.Parse(s);
+            } catch {
+                return new JObject();
+            }
         }
 
         public AcousticsStatus getStatus() {

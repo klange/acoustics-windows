@@ -7,6 +7,7 @@ using System.Windows.Forms;
 
 
 public class TransparentLabel : Label {
+    private bool _ellipseOnOverflow = false;
     public TransparentLabel() {
         this.SetStyle(ControlStyles.Opaque, true);
         this.SetStyle(ControlStyles.OptimizedDoubleBuffer, false);
@@ -39,6 +40,13 @@ public class TransparentLabel : Label {
      
         GraphicsPath stroke = new GraphicsPath();
         stroke.AddString(this.Text, this.Font.FontFamily, (int)FontStyle.Regular, this.Font.Size * 1.2f, new Point(0, 0), StringFormat.GenericDefault);
+        string tmp = this.Text;
+        while (stroke.GetBounds().Width > this.Width - 8) {
+            tmp = tmp.Substring(0, tmp.Length - 1);
+            stroke = new GraphicsPath();
+            stroke.AddString(tmp + "...", this.Font.FontFamily, (int)FontStyle.Regular, this.Font.Size * 1.2f, new Point(0, 0), StringFormat.GenericDefault);
+        }
+
         RectangleF bounds = stroke.GetBounds();
         Matrix translationMatrix = new Matrix();
         if (this.TextAlign == ContentAlignment.TopRight || this.TextAlign == ContentAlignment.MiddleRight || this.TextAlign == ContentAlignment.BottomRight) {
@@ -54,6 +62,11 @@ public class TransparentLabel : Label {
         stroke.Transform(translationMatrix);
         e.Graphics.DrawPath(new Pen(Brushes.Black, 3.0f), stroke); /* Stroke */
         e.Graphics.FillPath(Brushes.White, stroke); /* Text */
+    }
+
+    public bool EllipseOnOverflow {
+        get { return _ellipseOnOverflow; }
+        set { _ellipseOnOverflow = value; }
     }
 
 }

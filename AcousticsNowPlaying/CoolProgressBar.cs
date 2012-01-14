@@ -5,12 +5,34 @@ using System.Drawing.Text;
 using System.Linq;
 using System.Windows.Forms;
 
+public enum CoolProgressDisplayMode {
+    Numbers,
+    Time
+}
 
 public class CoolProgressBar : Label {
 
-    public int Minimum = 0;
-    public int Maximum = 100;
-    public int Value = 0;
+    private int _minimum = 0;
+    private int _maximum = 100;
+    private int _value = 0;
+    private CoolProgressDisplayMode _displayMode = CoolProgressDisplayMode.Numbers;
+    public int Minimum {
+        get { return _minimum; }
+        set { _minimum = value; }
+    }
+    public int Maximum {
+        get { return _maximum; }
+        set { _maximum = value; }
+    }
+    public int Value {
+        get { return _value; }
+        set { _value = Math.Min(Math.Max(value, _minimum), _maximum); } 
+    }
+    public CoolProgressDisplayMode DisplayMode {
+        get { return _displayMode; }
+        set { _displayMode = value; }
+    }
+
 
     public CoolProgressBar() {
         this.SetStyle(ControlStyles.Opaque, true);
@@ -74,24 +96,30 @@ public class CoolProgressBar : Label {
         }
         
     }
-    private String timeToString(int time) {
-        int hours = 0, minutes = 0, seconds = time;
-        while (seconds >= 3600) {
-            hours++;
-            seconds -= 3600;
-        }
-        while (seconds >= 60) {
-            minutes++;
-            seconds -= 60;
-        }
-        if (hours == 0) {
-            if (minutes == 0) {
-                return String.Format("0:{0:00}", seconds);
+    private String valueToString(int time) {
+        if (this._displayMode == CoolProgressDisplayMode.Numbers) {
+            return time.ToString();
+        } else if (this._displayMode == CoolProgressDisplayMode.Time) {
+            int hours = 0, minutes = 0, seconds = time;
+            while (seconds >= 3600) {
+                hours++;
+                seconds -= 3600;
+            }
+            while (seconds >= 60) {
+                minutes++;
+                seconds -= 60;
+            }
+            if (hours == 0) {
+                if (minutes == 0) {
+                    return String.Format("0:{0:00}", seconds);
+                } else {
+                    return String.Format("{0}:{1:00}", minutes, seconds);
+                }
             } else {
-                return String.Format("{0}:{1:00}", minutes, seconds);
+                return String.Format("{0}:{1:00}:{2:00}", hours, minutes, seconds);
             }
         } else {
-            return String.Format("{0}:{1:00}:{2:00}", hours, minutes, seconds);
+            return "[Invalid Display Mode]";
         }
     }
 
@@ -106,7 +134,7 @@ public class CoolProgressBar : Label {
         g.CompositingQuality = CompositingQuality.HighQuality;
         g.CompositingMode = CompositingMode.SourceOver;
 
-        String text = timeToString(this.Value) + " / " + timeToString(this.Maximum);
+        String text = valueToString(this.Value) + " / " + valueToString(this.Maximum);
 
         GraphicsPath stroke = new GraphicsPath();
         stroke.AddString(text, this.Font.FontFamily, (int)FontStyle.Regular, this.Font.Size * 1.2f, new Point(0, 0), StringFormat.GenericDefault);

@@ -33,7 +33,7 @@ namespace AcousticsNowPlaying {
         }
 
         void doLogin() {
-            client = new AcousticsClient("http://192.168.1.182/amp/");
+            client = new AcousticsClient(Properties.Settings.Default.serverBaseAddress);
             client.login("","");
             performUpdate();
         }
@@ -124,9 +124,13 @@ namespace AcousticsNowPlaying {
             }
         }
 
-        private void updateTick_Tick(object sender, EventArgs e) {
+        private void doUpdate() {
             Thread _worker = new Thread(new ThreadStart(performUpdate));
             _worker.Start();
+        }
+
+        private void updateTick_Tick(object sender, EventArgs e) {
+            doUpdate();
         }
 
         private void progressTicker_Tick(object sender, EventArgs e) {
@@ -136,9 +140,24 @@ namespace AcousticsNowPlaying {
                     coolProgressBar1.Refresh();
                 }
             } else {
-                Thread _worker = new Thread(new ThreadStart(performUpdate));
-                _worker.Start();
+                doUpdate();
             }
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
+            /* TODO: About box */
+        }
+
+        private SettingsWindow _settingsWindow;
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (_settingsWindow == null) {
+                _settingsWindow = new SettingsWindow();
+            }
+            _settingsWindow.Show();
+        }
+
+        private void refreshToolStripMenuItem_Click(object sender, EventArgs e) {
+            doUpdate();
         }
 
         

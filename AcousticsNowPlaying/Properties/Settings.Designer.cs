@@ -22,5 +22,17 @@ namespace AcousticsNowPlaying.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://example.com/amp/")]
+        public string serverBaseAddress {
+            get {
+                return ((string)(this["serverBaseAddress"]));
+            }
+            set {
+                this["serverBaseAddress"] = value;
+            }
+        }
     }
 }
